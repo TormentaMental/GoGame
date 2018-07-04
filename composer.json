@@ -1,0 +1,17 @@
+    {
+    "name": "TormentaMental/GoGame",
+    "description": "Go Game",
+    "type": "library",
+    "require": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "authors": [
+        {
+            "name": "LosTormenta",
+            "email": "LosTormenta@example.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"GoGame\\": ""}
+    }
+}

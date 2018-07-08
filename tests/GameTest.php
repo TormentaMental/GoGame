@@ -22,9 +22,15 @@ final class GameTest extends TestCase
 	{
 		$this->game->addStone('black', [3,0]);
 		$this->game->addStone('white', [1,0]);
-		
+
 		$this->assertEquals('black', $this->game->getStone([3,0]));
 		$this->assertEquals('white', $this->game->getStone([1,0]));
+	}
+
+	public function testAddStoneOutOfBoundShouldOutOfBoardException(): void
+	{
+		$this->expectException(OutOfBoardException::class);
+		$this->game->addStone('black', [100,100]);
 	}
 
 

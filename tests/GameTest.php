@@ -21,8 +21,6 @@ final class GameTest extends TestCase
 	public function testAddTwoStones(): void
 	{
 		$this->game->addStone('black', [0,0]);
-		$this->assertEquals('black', $this->game->getStone([0,0]));
-
 		$this->game->addStone('white', [1,0]);
 		$this->assertEquals('white', $this->game->getStone([1,0]));
 	}

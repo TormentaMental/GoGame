@@ -10,8 +10,21 @@ class Game
 		['', '' , '']
 	];
 
-	public function addStone($color, Array $position): void
+	public function addBlackStone(Array$position): void
 	{
+		$this->addStone('black', $position);
+	}
+
+	public function addWhiteStone(Array$position): void
+	{
+		$this->addStone('white', $position);
+	}
+
+	private function addStone($color, Array $position): void
+	{
+		if(!isset($this->board[$position[0]][$position[1]]))
+			throw new OutOfBoardException();
+			
 		$this->board[$position[0]][$position[1]] = $color;
 	}
 
@@ -21,3 +34,5 @@ class Game
 	}
 
 }
+
+class OutOfBoardException extends \Exception{}

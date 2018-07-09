@@ -1,7 +1,8 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use GoGame\Game;
+use GoGame\OutOfBoardException;
+use PHPUnit\Framework\TestCase;
 
 final class GameTest extends TestCase
 {
@@ -14,23 +15,23 @@ final class GameTest extends TestCase
 
 	public function testAddOneStone(): void
 	{
-		$this->game->addStone('black', [0,0]);
+		$this->game->addBlackStone([0,0]);
 		$this->assertEquals('black', $this->game->getStone([0,0])); 
 	}
 
 	public function testAddTwoStones(): void
 	{
-		$this->game->addStone('black', [3,0]);
-		$this->game->addStone('white', [1,0]);
+		$this->game->addBlackStone([2,0]);
+		$this->game->addWhiteStone([1,0]);
 
-		$this->assertEquals('black', $this->game->getStone([3,0]));
+		$this->assertEquals('black', $this->game->getStone([2,0]));
 		$this->assertEquals('white', $this->game->getStone([1,0]));
 	}
 
 	public function testAddStoneOutOfBoundShouldThrowException(): void
 	{
-		$this->expectException(OutOfBoardException::class); //uh otro nombre mas piola
-		$this->game->addStone('black', [100,100]);
+		$this->expectException(OutOfBoardException::class);
+		$this->game->addBlackStone([1000,1000]);
 	}
 
 

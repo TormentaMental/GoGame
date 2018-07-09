@@ -20,6 +20,11 @@ class Game
 		$this->addStone('white', $position);
 	}
 
+	public function getStone(Array $position): string
+	{
+		return $this->board[$position[0]][$position[1]];
+	}
+
 	private function addStone($color, Array $position): void
 	{
 		if(!isset($this->board[$position[0]][$position[1]]))
@@ -29,11 +34,6 @@ class Game
 			throw new PositionNotEmptyException();
 
 		$this->board[$position[0]][$position[1]] = $color;
-	}
-
-	public function getStone(Array $position): string
-	{
-		return $this->board[$position[0]][$position[1]];
 	}
 
 }

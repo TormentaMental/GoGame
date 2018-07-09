@@ -24,7 +24,10 @@ class Game
 	{
 		if(!isset($this->board[$position[0]][$position[1]]))
 			throw new OutOfBoardException();
-			
+
+		if(!empty($this->board[$position[0]][$position[1]]))
+			throw new PositionNotEmptyException();
+
 		$this->board[$position[0]][$position[1]] = $color;
 	}
 
@@ -36,3 +39,4 @@ class Game
 }
 
 class OutOfBoardException extends \Exception{}
+class PositionNotEmptyException extends \Exception{}

@@ -2,6 +2,7 @@
 
 use GoGame\Game;
 use GoGame\OutOfBoardException;
+use GoGame\PositionNotEmptyException;
 use PHPUnit\Framework\TestCase;
 
 final class GameTest extends TestCase
@@ -32,6 +33,19 @@ final class GameTest extends TestCase
 	{
 		$this->expectException(OutOfBoardException::class);
 		$this->game->addBlackStone([1000,1000]);
+	}
+
+	public function testAddStoneOverOtherStoneShouldThrowException(): void
+	{
+		$this->expectException(PositionNotEmptyException::class);
+		$this->game->addBlackStone([2,0]);
+		$this->game->addWhiteStone([2,0]);
+	}
+
+	public function testGetScoreAfterPlacingOneStone(): void
+	{
+		$this->game->addBlackStone([0,0]);
+		$this->assertEquals(1, $this->getScore('black'));
 	}
 
 

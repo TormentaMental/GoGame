@@ -28,6 +28,16 @@ class Game
 		return $this->board[$position[0]][$position[1]];
 	}
 
+	public function getScore($color): int
+	{
+		$score = 0;
+		foreach ($this->board as $row)
+			foreach ($row as $stone)
+				if($stone == $color)
+					$score++;
+		return $score;
+	}
+
 	private function buildBoard($size): void
 	{
 		for ($i=0; $i<$size; $i++)
@@ -35,15 +45,15 @@ class Game
 				$this->board[$i][$g] = '';
 	}
 
-	private function isFirstMove(){
-		return is_null($this->lastColorAdded);
-	}
-
 	private function addStone($color, Array $position): void
 	{
 		$this->checkIfColorCanAddStoneInPosition($color, $position);
 		$this->board[$position[0]][$position[1]] = $color;
 		$this->lastColorAdded = $color;
+	}
+
+	private function isFirstMove(){
+		return is_null($this->lastColorAdded);
 	}
 
 	private function checkIfColorCanAddStoneInPosition($color, Array $position){

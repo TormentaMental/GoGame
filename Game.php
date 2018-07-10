@@ -25,6 +25,16 @@ class Game
 		return $this->board[$position[0]][$position[1]];
 	}
 
+	public function getScore($color): int
+	{
+		$score = 0;
+		foreach ($this->board as $row)
+			foreach ($row as $stone)
+				if($stone == $color)
+					$score++;
+		return $score;
+	}
+
 	private function addStone($color, Array $position): void
 	{
 		if(!isset($this->board[$position[0]][$position[1]]))

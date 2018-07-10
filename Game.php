@@ -9,6 +9,7 @@ class Game
 		['', '' , ''],
 		['', '' , '']
 	];
+	private $lastColor = null;
 
 	public function addBlackStone(Array$position): void
 	{
@@ -17,6 +18,8 @@ class Game
 
 	public function addWhiteStone(Array$position): void
 	{
+		if($this->isFirstMove())
+			throw new WrongColorException();
 		$this->addStone('white', $position);
 	}
 
@@ -35,18 +38,37 @@ class Game
 		return $score;
 	}
 
+	private function isFirstMove(){
+		return is_null($this->lastColor);
+	}
+
 	private function addStone($color, Array $position): void
 	{
-		if(!isset($this->board[$position[0]][$position[1]]))
+		if(!$this->isPositionOnBoard($position))
 			throw new OutOfBoardException();
 
-		if(!empty($this->board[$position[0]][$position[1]]))
+		if(!$this->isPositionEmpty($position))
 			throw new PositionNotEmptyException();
 
+		if($this->lastColor == $color)
+			throw new WrongColorException();
+
 		$this->board[$position[0]][$position[1]] = $color;
+		$this->lastColor = $color;
+	}
+
+	private function isPositionOnBoard($position): bool
+	{
+		return isset($this->board[$position[0]][$position[1]]);
+	}
+
+	private function isPositionEmpty($position): bool
+	{
+		return empty($this->board[$position[0]][$position[1]]);
 	}
 
 }
 
 class OutOfBoardException extends \Exception{}
 class PositionNotEmptyException extends \Exception{}
+class WrongColorException extends \Exception{}

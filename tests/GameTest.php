@@ -72,6 +72,7 @@ final class GameTest extends TestCase
 		$this->game->addBlackStone([0,1]);
 		$this->assertEquals(2, $this->game->getBlackScore());
 		$this->assertEquals(1, $this->game->getWhiteScore());
+
 	}
 
 

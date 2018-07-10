@@ -9,11 +9,12 @@ class Game
 	private $blackScore = 0;
 	private $whiteScore = 0;
 
+
 	public function __construct($size){
 		$this->buildBoard($size);
 	}
 
-	public function addBlackStone(Array $position): void
+	public function addBlackStone(Array$position): void
 	{
 		$this->addStone('black', $position);
 		$this->blackScore++;
@@ -62,6 +63,7 @@ class Game
 
 	private function isFirstMove(){
 		return is_null($this->lastColorAdded);
+		$this->lastColor = $color;
 	}
 
 	private function checkIfColorCanAddStoneInPosition($color, Array $position){

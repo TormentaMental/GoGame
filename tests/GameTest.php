@@ -12,7 +12,7 @@ final class GameTest extends TestCase
 
 	public function setUp(): void
 	{
-		$this->game = new Game();
+		$this->game = new Game(9);
 	}
 
 	public function testAddTwoStones(): void
@@ -27,7 +27,7 @@ final class GameTest extends TestCase
 	public function testAddStoneOutOfBoundShouldThrowException(): void
 	{
 		$this->expectException(OutOfBoardException::class);
-		$this->game->addBlackStone([1000,1000]);
+		$this->game->addBlackStone([10,10]);
 	}
 
 	public function testAddStoneOverOtherStoneShouldThrowException(): void
@@ -49,28 +49,15 @@ final class GameTest extends TestCase
 		$this->game->addBlackStone([1,0]);
 	}
 
-	// public function testGetScoreAfterPlacingOneStone(): void
-	// {
-	// 	$this->game->addBlackStone([0,0]);
-	// 	$this->assertEquals(1, $this->game->getScore('black'));
-	// }
+	public function testSetUpBoardSize(): void
+	{
+		$this->game = new Game(9);
+		$this->game->addBlackStone([8,8]);
 
-	// public function testGetScoreAfterPlacingTwoStones(): void
-	// {
-	// 	$this->game->addBlackStone([0,0]);
-	// 	$this->game->addBlackStone([0,1]);
-	// 	$this->assertEquals(2, $this->game->getScore('black'));
-	// }
+		$this->game = new Game(30);
+		$this->game->addBlackStone([29,29]);
 
-	// public function testGetScoreAfterPlacingStonesForBothColors(): void
-	// {
-	// 	$this->game->addBlackStone([0,0]);
-	// 	$this->game->addBlackStone([0,1]);
-	// 	$this->assertEquals(2, $this->game->getScore('black'));
-
-	// 	$this->game->addWhiteStone([0,2]);
-	// 	$this->assertEquals(1, $this->game->getScore('white'));
-	// }
+	}
 
 
 }

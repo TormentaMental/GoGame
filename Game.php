@@ -4,12 +4,13 @@ namespace GoGame;
 class Game
 {
 
-	private $board = [
-		['', '' , ''],
-		['', '' , ''],
-		['', '' , '']
-	];
+	private $size;
+	private $board;
 	private $lastColor = null;
+
+	public function __construct($size){
+		$this->buildBoard($size);
+	}
 
 	public function addBlackStone(Array$position): void
 	{
@@ -28,14 +29,11 @@ class Game
 		return $this->board[$position[0]][$position[1]];
 	}
 
-	public function getScore($color): int
+	private function buildBoard($size): void
 	{
-		$score = 0;
-		foreach ($this->board as $row)
-			foreach ($row as $stone)
-				if($stone == $color)
-					$score++;
-		return $score;
+		for ($i=0; $i<$size; $i++)
+			for ($g=0; $g<$size; $g++)
+				$this->board[$i][$g] = '';
 	}
 
 	private function isFirstMove(){
@@ -44,6 +42,12 @@ class Game
 
 	private function addStone($color, Array $position): void
 	{
+		$this->checkIfColorCanAddStoneInPosition($color, $position);
+		$this->board[$position[0]][$position[1]] = $color;
+		$this->lastColor = $color;
+	}
+
+	private function checkIfColorCanAddStoneInPosition($color, Array $position){
 		if(!$this->isPositionOnBoard($position))
 			throw new OutOfBoardException();
 
@@ -52,9 +56,6 @@ class Game
 
 		if($this->lastColor == $color)
 			throw new WrongColorException();
-
-		$this->board[$position[0]][$position[1]] = $color;
-		$this->lastColor = $color;
 	}
 
 	private function isPositionOnBoard($position): bool

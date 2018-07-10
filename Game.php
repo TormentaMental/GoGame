@@ -6,21 +6,25 @@ class Game
 
 	private $board;
 	private $lastColorAdded;
+	private $blackScore = 0;
+	private $whiteScore = 0;
 
 	public function __construct($size){
 		$this->buildBoard($size);
 	}
 
-	public function addBlackStone(Array$position): void
+	public function addBlackStone(Array $position): void
 	{
 		$this->addStone('black', $position);
+		$this->blackScore++;
 	}
 
-	public function addWhiteStone(Array$position): void
+	public function addWhiteStone(Array $position): void
 	{
 		if($this->isFirstMove())
 			throw new WrongColorException();
 		$this->addStone('white', $position);
+		$this->whiteScore++;
 	}
 
 	public function getStone(Array $position): string
@@ -28,14 +32,18 @@ class Game
 		return $this->board[$position[0]][$position[1]];
 	}
 
-	public function getScore($color): int
+	public function getBlackScore(): int
 	{
-		$score = 0;
-		foreach ($this->board as $row)
-			foreach ($row as $stone)
-				if($stone == $color)
-					$score++;
-		return $score;
+		return $this->blackScore;
+	}
+
+	public function getWhiteScore(): int
+	{
+		return $this->whiteScore;
+	}
+
+	public function getBoard(){
+		return $this->board;
 	}
 
 	private function buildBoard($size): void

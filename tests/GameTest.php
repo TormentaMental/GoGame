@@ -62,7 +62,7 @@ final class GameTest extends TestCase
 	public function testGetScoreAfterPlacingOneStone(): void
 	{
 		$this->game->addBlackStone([0,0]);
-		$this->assertEquals(1, $this->game->getScore('black'));
+		$this->assertEquals(1, $this->game->getBlackScore());
 	}
 
 	public function testGetScoreAfterPlacingStonesForBothColors(): void
@@ -70,8 +70,8 @@ final class GameTest extends TestCase
 		$this->game->addBlackStone([0,0]);
 		$this->game->addWhiteStone([0,2]);
 		$this->game->addBlackStone([0,1]);
-		$this->assertEquals(2, $this->game->getScore('black'));
-		$this->assertEquals(1, $this->game->getScore('white'));
+		$this->assertEquals(2, $this->game->getBlackScore());
+		$this->assertEquals(1, $this->game->getWhiteScore());
 	}
 
 

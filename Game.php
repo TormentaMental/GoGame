@@ -13,7 +13,7 @@ class Game
 		$this->buildBoard($size);
 	}
 
-	public function addBlackStone(Array$intersection): void
+	public function addBlackStone(Array $intersection): void
 	{
 		$this->addStone('black', $intersection);
 		$this->blackScore++;

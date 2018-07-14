@@ -2,7 +2,7 @@
 
 use GoGame\Game;
 use GoGame\OutOfBoardException;
-use GoGame\PositionNotEmptyException;
+use GoGame\IntersectionNotEmptyException;
 use GoGame\WrongColorException;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +21,7 @@ final class GameTest extends TestCase
 		$this->game->addWhiteStone([1,0]);
 		$this->assertEquals('black', $this->game->getStone([2,0]));
 		$this->assertEquals('white', $this->game->getStone([1,0]));
+		$this->assertEquals('', $this->game->getStone([1,1]));
 	}
 
 	public function testAddStoneOutOfBoundShouldThrowException(): void
@@ -29,10 +30,16 @@ final class GameTest extends TestCase
 		$this->game->addBlackStone([10,10]);
 	}
 
+	public function testGetStoneOutOfBoundShouldThrowException(): void
+	{
+		$this->expectException(OutOfBoardException::class);
+		$this->game->getStone([10,10]);
+	}
+
 	public function testAddStoneOverOtherStoneShouldThrowException(): void
 	{
 		$this->game->addBlackStone([2,0]);
-		$this->expectException(PositionNotEmptyException::class);
+		$this->expectException(IntersectionNotEmptyException::class);
 		$this->game->addWhiteStone([2,0]);
 	}
 

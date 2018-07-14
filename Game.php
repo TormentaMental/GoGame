@@ -5,32 +5,33 @@ class Game
 {
 
 	private $board;
-	private $lastColorAdded;
+	private $lastStoneColorAdded;
 	private $blackScore = 0;
 	private $whiteScore = 0;
-
 
 	public function __construct($size){
 		$this->buildBoard($size);
 	}
 
-	public function addBlackStone(Array$position): void
+	public function addBlackStone(Array$intersection): void
 	{
-		$this->addStone('black', $position);
+		$this->addStone('black', $intersection);
 		$this->blackScore++;
 	}
 
-	public function addWhiteStone(Array $position): void
+	public function addWhiteStone(Array $intersection): void
 	{
 		if($this->isFirstMove())
 			throw new WrongColorException();
-		$this->addStone('white', $position);
+		$this->addStone('white', $intersection);
 		$this->whiteScore++;
 	}
 
-	public function getStone(Array $position): string
+	public function getStone(Array $intersection): string
 	{
-		return $this->board[$position[0]][$position[1]];
+		if(!$this->isIntersectionOnBoard($intersection))
+			throw new OutOfBoardException();
+		return $this->board[$intersection[0]][$intersection[1]];
 	}
 
 	public function getBlackScore(): int
@@ -54,41 +55,41 @@ class Game
 				$this->board[$i][$g] = '';
 	}
 
-	private function addStone($color, Array $position): void
+	private function addStone($color, Array $intersection): void
 	{
-		$this->checkIfColorCanAddStoneInPosition($color, $position);
-		$this->board[$position[0]][$position[1]] = $color;
-		$this->lastColorAdded = $color;
+		$this->checkIfStoneCanBeAddedInIntersection($color, $intersection);
+		$this->board[$intersection[0]][$intersection[1]] = $color;
+		$this->lastStoneColorAdded = $color;
 	}
 
 	private function isFirstMove(){
-		return is_null($this->lastColorAdded);
+		return is_null($this->lastStoneColorAdded);
 		$this->lastColor = $color;
 	}
 
-	private function checkIfColorCanAddStoneInPosition($color, Array $position){
-		if(!$this->isPositionOnBoard($position))
+	private function checkIfStoneCanBeAddedInIntersection($color, Array $intersection){
+		if(!$this->isIntersectionOnBoard($intersection))
 			throw new OutOfBoardException();
 
-		if(!$this->isPositionEmpty($position))
-			throw new PositionNotEmptyException();
+		if(!$this->isIntersectionEmpty($intersection))
+			throw new IntersectionNotEmptyException();
 
-		if($this->lastColorAdded == $color)
+		if($this->lastStoneColorAdded == $color)
 			throw new WrongColorException();
 	}
 
-	private function isPositionOnBoard($position): bool
+	private function isIntersectionOnBoard($intersection): bool
 	{
-		return isset($this->board[$position[0]][$position[1]]);
+		return isset($this->board[$intersection[0]][$intersection[1]]);
 	}
 
-	private function isPositionEmpty($position): bool
+	private function isIntersectionEmpty($intersection): bool
 	{
-		return empty($this->board[$position[0]][$position[1]]);
+		return empty($this->board[$intersection[0]][$intersection[1]]);
 	}
 
 }
 
 class OutOfBoardException extends \Exception{}
-class PositionNotEmptyException extends \Exception{}
+class IntersectionNotEmptyException extends \Exception{}
 class WrongColorException extends \Exception{}

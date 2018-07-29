@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class BoardFactoryTest extends TestCase
 {
-    
     public function testCreateReturnsBoardInstance()
     {
         $this->assertInstanceOf(Board::class, BoardFactory::createSmallBoard());
@@ -23,5 +22,4 @@ class BoardFactoryTest extends TestCase
         $bigBoard = BoardFactory::createBigBoard();
         $this->assertEquals(90, count($bigBoard->getIntersections()));
     }
-
 }

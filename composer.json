@@ -12,6 +12,6 @@
         }
     ],
     "autoload": {
-        "psr-4": {"GoGame\\": ""}
+        "psr-4": {"GoGame\\": "src/"}
     }
 }

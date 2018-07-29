@@ -5,78 +5,74 @@ use GoGame\Board;
 
 class Game
 {
-    const BLACK_STONE = 'black';
-    const WHITE_STONE = 'white';
-
-    private $board;
-    private $lastStoneColorAdded;
-    private $blackScore = 0;
-    private $whiteScore = 0;
+  const BLACK_STONE = 'black';
+  const WHITE_STONE = 'white';
   
-    public function __construct(Board $board)
-    {
-        $this->board = $board;
-    }
+  private $board;
+  private $lastStoneColorAdded;
+  private $blackScore = 0;
+  private $whiteScore = 0;
   
-    public function addBlackStone($col, $row): void
-    {
-        $this->addStone($col, $row, self::BLACK_STONE);
-        $this->blackScore++;
-    }
+  public function __construct(Board $board)
+  {
+    $this->board = $board;
+  }
   
-    public function addWhiteStone($col, $row): void
-    {
-        if ($this->isFirstMove()) {
-            throw new WrongColorException();
-        }
-        $this->addStone($col, $row, self::WHITE_STONE);
-        $this->whiteScore++;
-    }
+  public function addBlackStone($col, $row): void
+  {
+    $this->addStone($col, $row, self::BLACK_STONE);
+    $this->blackScore++;
+  }
   
-    public function getStone($col, $row): string
-    {
-        return $this->board->getIntersection($col, $row);
+  public function addWhiteStone($col, $row): void
+  {
+    if ($this->isFirstMove()) {
+      throw new WrongColorException();
     }
+    $this->addStone($col, $row, self::WHITE_STONE);
+    $this->whiteScore++;
+  }
   
-    public function getBlackScore(): int
-    {
-        return $this->blackScore;
-    }
+  public function getStone($col, $row): string
+  {
+    return $this->board->getIntersection($col, $row);
+  }
   
-    public function getWhiteScore(): int
-    {
-        return $this->whiteScore;
-    }
+  public function getBlackScore(): int
+  {
+    return $this->blackScore;
+  }
   
-    public function getBoard()
-    {
-        return $this->board;
-    }
-
-    public function getNextColor()
-    {
-        if (is_null($this->lastStoneColorAdded) || $this->lastStoneColorAdded == self::WHITE_STONE) {
-            return self::BLACK_STONE;
-        } else {
-            return self::WHITE_STONE;
-        }
-    }
+  public function getWhiteScore(): int
+  {
+    return $this->whiteScore;
+  }
   
-    private function addStone($col, $row, $stoneColor): void
-    {
-        if ($this->lastStoneColorAdded == $stoneColor) {
-            throw new WrongColorException();
-        }
-        $this->board->setIntersection($col, $row, $stoneColor);
-        $this->lastStoneColorAdded = $stoneColor;
-    }
+  public function getBoard()
+  {
+    return $this->board;
+  }
   
-    private function isFirstMove()
-    {
-        return is_null($this->lastStoneColorAdded);
+  public function getNextColor()
+  {
+    if (is_null($this->lastStoneColorAdded) || $this->lastStoneColorAdded == self::WHITE_STONE) {
+      return self::BLACK_STONE;
+    } else {
+      return self::WHITE_STONE;
     }
-}
-
-class WrongColorException extends \Exception
-{
+  }
+  
+  private function addStone($col, $row, $stoneColor): void
+  {
+    if ($this->lastStoneColorAdded == $stoneColor) {
+      throw new WrongColorException();
+    }
+    $this->board->setIntersection($col, $row, $stoneColor);
+    $this->lastStoneColorAdded = $stoneColor;
+  }
+  
+  private function isFirstMove()
+  {
+    return is_null($this->lastStoneColorAdded);
+  }
 }

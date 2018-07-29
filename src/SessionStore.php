@@ -2,34 +2,30 @@
 
 namespace GoGame;
 
-class GameStoreMemory implements GameStore
+class SessionStore implements Store
 {
     private $game;
-
+  
     public function save(Game $game): void
     {
-        $this->game = $game;
+        $_SESSION['GoGame_serialized_game'] = serialize($game);
     }
-
+  
     public function load(): Game
     {
         if ($this->isEmpty()) {
             throw new EmptyStoreException();
         }
-        return $this->game;
+        return unserialize($_SESSION['GoGame_serialized_game']);
     }
-
+  
     public function reset(): void
     {
-        $this->game = null;
+        unset( $_SESSION['GoGame_serialized_game'] );
     }
   
     public function isEmpty(): bool
     {
-        return is_null($this->game);
+        return empty($_SESSION['GoGame_serialized_game']);
     }
-}
-
-class EmptyStoreException extends \Exception
-{
 }

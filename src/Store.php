@@ -2,7 +2,7 @@
 
 namespace GoGame;
 
-interface GameStore
+interface Store
 {
     public function save(Game $game): void;
     public function load(): Game;

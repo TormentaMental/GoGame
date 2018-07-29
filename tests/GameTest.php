@@ -16,8 +16,8 @@ final class GameTest extends TestCase
     public function setUp(): void
     {
         $this->game = new Game(
-      BoardFactory::createSmallBoard()
-    );
+          BoardFactory::createSmallBoard()
+        );
     }
   
     public function testAddTwoStones(): void

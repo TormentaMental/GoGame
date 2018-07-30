@@ -52,6 +52,11 @@ class Game
   {
     return $this->board;
   }
+
+  public function getBoardIntersections()
+  {
+    return $this->board->getIntersections();
+  }
   
   public function getNextColor()
   {

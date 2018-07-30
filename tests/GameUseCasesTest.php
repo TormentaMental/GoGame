@@ -1,9 +1,10 @@
 <?php
 
 use GoGame\Game;
+use GoGame\Presenter;
 use GoGame\BoardFactory;
-use GoGame\SessionStore as Store;
 use PHPUnit\Framework\TestCase;
+use GoGame\SessionStore as Store;
 
 class GameUseCasesTest extends TestCase
 {
@@ -61,4 +62,38 @@ class GameUseCasesTest extends TestCase
         $game->addBlackStone(2, 0);
         $this->assertEquals('white', $game->getNextColor());
     }
+
+    public function testGameCanBePresented()
+    {
+      $game = new Game(BoardFactory::createSmallBoard());
+        $presenter = new Presenter($game);
+        
+        $this->assertTrue(is_array($presenter->toArray()));
+        $this->assertInstanceOf(\stdClass::class, $presenter->toObj());
+    }
+
+    public function testGamePresenterRetrievesData()
+    {
+        $game = new Game(BoardFactory::createSmallBoard());
+        $presenter = new Presenter($game);
+        $arr = $presenter->toArray();
+
+        $this->assertEquals($this->buildIntersections(9), $arr['board_intersections']);
+        $this->assertEquals(0, $arr['white_score']);
+        $this->assertEquals(0, $arr['black_score']);
+        $this->assertEquals('black', $arr['who_plays_next']);
+        
+    }
+
+    private static function buildIntersections($size): array
+    {
+        $intersections = [];
+        for ($i=0; $i<$size; $i++) {
+            for ($g=0; $g<$size; $g++) {
+                $intersections[$i][$g] = '';
+            }
+        }
+        return $intersections;
+    }
 }
+

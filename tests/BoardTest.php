@@ -9,6 +9,7 @@ use GoGame\IntersectionNotFoundException;
 final class BoardTest extends TestCase
 {
     private $board;
+    
   
     public function setUp(): void
     {

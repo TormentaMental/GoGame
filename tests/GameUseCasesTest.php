@@ -78,10 +78,10 @@ class GameUseCasesTest extends TestCase
         $presenter = new Presenter($game);
         $arr = $presenter->toArray();
 
-        $this->assertEquals($this->buildIntersections(9), $arr['board_intersections']);
-        $this->assertEquals(0, $arr['white_score']);
-        $this->assertEquals(0, $arr['black_score']);
-        $this->assertEquals('black', $arr['who_plays_next']);
+        $this->assertEquals($this->buildIntersections(9), $arr['boardIntersections']);
+        $this->assertEquals(0, $arr['whiteScore']);
+        $this->assertEquals(0, $arr['blackScore']);
+        $this->assertEquals('black', $arr['whoPlaysNext']);
         
     }
 

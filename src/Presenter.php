@@ -14,10 +14,10 @@ class Presenter
   public function toArray(): Array
   {
     return [
-      'board_intersections' => $this->game->getBoardIntersections(),
-      'white_score' => $this->game->getWhiteScore(),
-      'black_score' => $this->game->getBlackScore(),
-      'who_plays_next' => $this->game->getNextColor()
+      'boardIntersections' => $this->game->getBoardIntersections(),
+      'whiteScore' => $this->game->getWhiteScore(),
+      'blackScore' => $this->game->getBlackScore(),
+      'whoPlaysNext' => $this->game->getNextColor()
     ];
   }
   

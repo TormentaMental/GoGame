@@ -8,22 +8,18 @@ use GoGame\Game;
 class ShowGameUseCase
 {
 
-  private $game;
   private $storage;
     
-  public function __construct(Game $game, Storage $storage)
+  public function __construct(Storage $storage)
   {
-      $this->game = $game;
       $this->storage = $storage;
   }
 
-  public function execute()
+  public function execute(Game $newGame)
   {
     if( $this->storage->isEmpty() )
-      $this->storage->save($this->game);
-    else
-      $this->game = $this->storage->load();
+      $this->storage->save($newGame);
     
-    return $this->game;
+    return $this->storage->load();
   }
 }

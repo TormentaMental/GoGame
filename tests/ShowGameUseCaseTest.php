@@ -18,21 +18,22 @@ class ShowGameUseCaseTest extends TestCase
     $mockStorage = m::mock('GoGame\Storage');
     $mockStorage->shouldReceive('isEmpty')->andReturn(true)->once();
     $mockStorage->shouldReceive('save')->with($mockGame)->once();
+    $mockStorage->shouldReceive('load')->once();
 
-    $useCase = new ShowGameUseCase($mockGame, $mockStorage);
-    $this->assertInstanceOf(Game::class, $useCase->execute());
+    $useCase = new ShowGameUseCase($mockStorage);
+    $this->assertInstanceOf(Game::class, $useCase->execute($mockGame));
 
   }
 
   function testIfStorageNotEmptyLoadGame()
   {
-    $mockGame = m::mock('GoGame\Game');
     $mockStorage = m::mock('GoGame\Storage');
     $mockStorage->shouldReceive('isEmpty')->andReturn(false)->once();
     $mockStorage->shouldReceive('load')->once();
+    $mockGame = m::mock('GoGame\Game');
 
-    $useCase = new ShowGameUseCase($mockGame, $mockStorage);
-    $this->assertInstanceOf(Game::class, $useCase->execute());
+    $useCase = new ShowGameUseCase($mockStorage);
+    $this->assertInstanceOf(Game::class, $useCase->execute($mockGame));
 
   }
 

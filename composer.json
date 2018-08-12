@@ -2,8 +2,9 @@
     "name": "TormentaMental/GoGame",
     "description": "Go Game",
     "type": "library",
-    "require": {
-        "phpunit/phpunit": "^7.2"
+    "require-dev": {
+        "phpunit/phpunit": "^7.2",
+        "mockery/mockery": "dev-master"
     },
     "authors": [
         {
